@@ -186,7 +186,7 @@ dogbreeds.nodeAt(index: 3)
 
 4、算法中使用
 
-+ 单链表简单使用 数据域数据l类型为Int
++ 单链表简单使用 数据域数据类型为Int
 
 ```swift
 //链表类
