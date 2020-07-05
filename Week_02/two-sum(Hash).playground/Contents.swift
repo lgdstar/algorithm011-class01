@@ -1,3 +1,9 @@
+/*
+* @lc app=leetcode.cn id=1 lang=swift
+*
+* [1] 两数之和
+*/
+
 import Cocoa
 
 var str = "Hello, playground"
