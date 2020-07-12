@@ -97,12 +97,13 @@ func isAnagramHashEx(_ s: String, _ t: String) -> Bool {
     for i in s.unicodeScalars {
         
         if counter.keys.contains(Int(i.value)) == true {
-            
+
             counter[Int(i.value)]! += 1
         } else {
-            
+
             counter[Int(i.value)] = 1
         }
+        
     }
     
     for i in t.unicodeScalars {
@@ -125,3 +126,29 @@ func isAnagramHashEx(_ s: String, _ t: String) -> Bool {
 
 isAnagramHashEx("🎉🍵🍵", "🍵🍵🎉")
 
+//进阶问题 简化代码
+func isAnagramHashExS(_ s: String, _ t: String) -> Bool {
+     if s.count != t.count {
+          return false
+     }
+    
+    var counter = [Int: Int]()
+    
+    for i in s.unicodeScalars {
+        
+        //简化
+        counter[Int(i.value), default: 0] += 1
+    }
+    
+    for i in t.unicodeScalars {
+        
+        counter[Int(i.value), default: 0] -= 1
+        
+        if counter[Int(i.value)]! < 0 {
+            //不存在相同索引值的正值抵消，可认为存在字符不同
+            return false
+        }
+    }
+    
+    return true
+}
