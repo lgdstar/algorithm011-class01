@@ -8,6 +8,30 @@
 
 ---
 
+### Swift相关
+
+1、堆(Heap)的实现 (待详细解析)
+
+参考链接：
+
+算法俱乐部：堆[1]
+
+算法俱乐部：堆(英文)[2]
+
+具体demo[3]
+
+
+
+[1]:https://github.com/andyRon/swift-algorithm-club-cn/tree/master/Heap
+[2]:https://github.com/raywenderlich/swift-algorithm-club/tree/master/Heap
+[3]:https://github.com/raywenderlich/swift-algorithm-club/blob/master/Heap/Heap.swift
+
+
+
+
+
+---
+
 ###问题
 
 1、 49字母异位词分组题目： 存在解法中使用 5的幂之和作为key的方式，此方式耗时较短， 确认使用此方式的理论依据
