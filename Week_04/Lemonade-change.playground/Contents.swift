@@ -24,13 +24,11 @@ func lemonadeChange(_ bills: [Int]) -> Bool {
          } else if bills[i] == 10 {
              cash -= 1
              tenCash += 1
-         } else {
-             if  tenCash > 0 {
-                 cash -= 1
-                 tenCash -= 1
-             } else  {
-                 cash -= 3
-             }
+         } else if tenCash > 0 { //20
+             cash -= 1
+             tenCash -= 1
+         } else  { //20
+             cash -= 3
          }
         
         //优化代码：汇总判断
