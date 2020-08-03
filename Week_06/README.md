@@ -29,3 +29,9 @@
 var loc = [[Int]](repeating: [Int](repeating: 0 , count : n) ,count: m)
 ```
 
+2、设置Int类型最小值
+
+```swift
+var a = Int.min
+```
+
