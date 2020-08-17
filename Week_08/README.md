@@ -60,9 +60,13 @@ a ^ b ^ c = (a ^ b) ^ c = a ^ (b ^ c)
 
 ##### 2、布隆过滤器
 
+布隆过滤器进行模糊插叙筛选，剔除完全不存在的，对可能存在的进行更深一步的其他查询(DB查询)
+
 
 
 ##### 3、LRU Cache
+
+Least Recent Use
 
 
 
@@ -77,6 +81,25 @@ a ^ b ^ c = (a ^ b) ^ c = a ^ (b ^ c)
 ----
 
 #### Swift相关
+
+##### 1、十进制转换二进制
+
+使用带有radix参数的String初始化程序将十进制值转换为人类可读的二进制表示形式
+
+```swift
+let num = 22
+let str = String(num, radix: 2)
+print(str) // prints "10110"
+```
+
+另： 遍历字符串使用
+
+```swift
+let Str = "10110"
+for char in Str {
+  print(char)
+}
+```
 
 
 
