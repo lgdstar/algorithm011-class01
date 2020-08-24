@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
 
-    //dp 时间复杂度：O(n)  空间复杂度：O(n) //字符串长度
+    //1、dp 时间复杂度：O(n)  空间复杂度：O(n) //字符串长度
     func numDecodings_1(_ s: String) -> Int {
         if s.first == "0" { //非空字符串无需空值判断
             return 0
@@ -44,8 +44,8 @@ class Solution {
         return curr
     }
 
-    //外站高赞 dp  了解思路
-    func numDecodings(_ s: String) -> Int {
+    //2、外站高赞 dp  了解思路
+    func numDecodings_2(_ s: String) -> Int {
 
         if s.first == "0" {
 
@@ -79,6 +79,121 @@ class Solution {
         return dp[length]
     }
 
+    //3、递归 超时 时间复杂度: O(n^2)
+    func numDecodings_3(_ s: String) -> Int {
+
+        var sArray = Array(s)
+        let count = sArray.count
+        //从后向前
+        func numDecodings(_ index: Int) -> Int {
+            if index == count {
+                return 1 
+            }
+
+            if sArray[index] == "0" {
+                return 0
+            }
+
+            var res = numDecodings(index + 1)
+
+            if index < count - 1,  //两位数，index需留出至少两位
+            (sArray[index] == "1" || (sArray[index] == "2" && sArray[index + 1] < "7")) {
+
+                res += numDecodings(index + 2)
+            }
+
+            return res
+        }
+
+        return numDecodings(0)
+    }
+
+    //记忆化递归 时间复杂度:O(n)
+    func numDecodings_3_1(_ s: String) -> Int {
+
+        var sArray = Array(s)
+        let count = sArray.count
+        var memo = [Int](repeating: -1 , count: count + 1)
+        memo[count] = 1
+
+        //从后向前
+        func numDecodings(_ index: Int) -> Int {
+            if memo[index] > -1 {
+                return memo[index]
+            }
+
+            if sArray[index] == "0" {
+                memo[index] = 0
+                return 0
+            }
+
+            var res = numDecodings(index + 1)
+
+            if index < count - 1,  //两位数，index需留出至少两位
+            (sArray[index] == "1" || (sArray[index] == "2" && sArray[index + 1] < "7")) {
+
+                res += numDecodings(index + 2)
+            }
+
+            memo[index] = res
+            return res
+        }
+
+        return numDecodings(0)
+    }
+
+    //4、dp 一维数组 从后向前
+    func numDecodings_4(_ s: String) -> Int {
+
+        var sArray = Array(s)
+        var dp = [Int](repeating: 0, count: sArray.count + 1)
+        dp[sArray.count] = 1
+
+        var i = sArray.count - 1
+        while i >= 0 {
+            
+            if sArray[i] == "0" {
+                dp[i] = 0
+            } else {
+
+                dp[i] = dp[i + 1]
+                if i < sArray.count - 1,  //两位数，index需留出至少两位
+            (sArray[i] == "1" || (sArray[i] == "2" && sArray[i + 1] < "7")) {
+
+                dp[i] += dp[i + 2]
+                }
+            }
+            
+            i -= 1
+        }
+
+        return dp[0]
+    }
+
+    // 常数空间
+    func numDecodings(_ s: String) -> Int {
+
+        var curr = 1, pre = 0, sArray = Array(s)
+
+        var i = sArray.count - 1
+        while i >= 0 {
+            
+            var tmp = sArray[i] == "0" ? 0 : curr
+
+            if i < sArray.count - 1,  //两位数，index需留出至少两位
+            (sArray[i] == "1" || (sArray[i] == "2" && sArray[i + 1] < "7")) {
+
+                tmp += pre
+            }
+
+            pre = curr
+            curr = tmp
+            
+            i -= 1
+        }
+
+        return curr
+    }
 
 }
 // @lc code=end
