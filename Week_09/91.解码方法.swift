@@ -22,7 +22,7 @@ class Solution {
 
                 if sArray[i - 1] == "1" || sArray[i - 1] == "2" {
                     
-                    curr = pre  //与回滚2个位置的解码方法数相同
+                    curr = pre  //与回滚2个位置的解码方法数相同 dp[i] = dp[i - 2]
                 } else {
 
                     return 0
