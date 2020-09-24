@@ -208,5 +208,96 @@ func getLeastNumbers_2(_ arr: [Int], _ k: Int) -> [Int] {
 getLeastNumbers_2([3,2,1], 2)
 
 /*
- 3、快速排序方法 (暂未学习)
+ 3、快速排序方法
+ 时间复杂度：期望为 O(n) ，由于证明过程很繁琐，所以不再这里展开讲。具体证明可以参考《算法导论》第 9 章第 2 小节。
+ 最坏情况下的时间复杂度为 O(n^2)。情况最差时，每次的划分点都是最大值或最小值，一共需要划分 n - 1 次，而一次划分需要线性的时间复杂度，所以最坏情况下时间复杂度为 O(n^2)。
+
+ 空间复杂度：期望为 O(log⁡n)，递归调用的期望深度为 O(log⁡n)，每层需要的空间为 O(1)，只有常数个变量。
+ 最坏情况下的空间复杂度为 O(n)。最坏情况下需要划分 n 次，即 randomized_selected 函数递归调用最深 n - 1 层，而每层由于需要 O(1) 的空间，所以一共需要 O(n) 的空间复杂度
+ 
  */
+
+func quickSort(_ arr: inout [Int], _ left: Int, _ right: Int) {
+    
+    if left >= right || arr.count <= 1 {
+        
+        return
+    }
+    
+    let partitionIndex: Int = partition(&arr, left, right)
+    quickSort(&arr, left, partitionIndex - 1)
+    quickSort(&arr, partitionIndex + 1, right)
+}
+
+func partition(_ arr: inout [Int], _ left: Int, _ right: Int) -> Int { //分区操作
+    
+    let pivot = left  //设定基准值
+    var index = pivot + 1  //从基准值+1开始
+    
+    for i in index...right { //注意界限，包含最后的值
+        if arr[i] < arr[pivot] {
+            
+            (arr[i], arr[index]) = (arr[index], arr[i]) //交换数据，小于基准的放在索引值位置
+            index += 1
+        }
+    }
+    
+    //交换数据 把基准值与最后一个小于他的数据交互，放置与中间位置
+    (arr[index - 1], arr[pivot]) = (arr[pivot], arr[index - 1])
+    
+    return index - 1
+}
+
+func getLeastNumbers_3(_ arr: [Int], _ k: Int) -> [Int] {
+    
+    if k == 0 || arr.isEmpty {
+        return []
+    }
+    
+    if k == arr.count {
+        return arr
+    }
+    
+    var arrM = arr
+    quickSort(&arrM, 0, arr.count - 1)
+    return  Array(arrM.prefix(k))
+}
+
+getLeastNumbers_3([3,2,1], 2)
+
+func quickSort(_ arr: inout [Int], _ left: Int, _ right: Int, _ k: Int) {
+    
+    if left >= right || arr.count <= 1 {
+        
+        return
+    }
+    
+    let partitionIndex: Int = partition(&arr, left, right)
+    //使用k值进行优化
+    if partitionIndex == k {
+        return
+    } else if partitionIndex > k - 1 {
+        
+        quickSort(&arr, left, partitionIndex - 1, k)
+    } else {
+        
+        quickSort(&arr, partitionIndex + 1, right, k)
+    }
+}
+
+func getLeastNumbers_4(_ arr: [Int], _ k: Int) -> [Int] {
+    
+    if k == 0 || arr.isEmpty {
+        return []
+    }
+    
+    if k == arr.count {
+        return arr
+    }
+    
+    var arrM = arr
+    quickSort(&arrM, 0, arr.count - 1, k)
+    return  Array(arrM.prefix(k))
+}
+
+getLeastNumbers_4([3,2,1], 2)
